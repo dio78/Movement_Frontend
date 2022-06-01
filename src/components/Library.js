@@ -52,11 +52,7 @@ export default function Library () {
 
   const DisplayVideos = () => {
     if (movementArray.length === 0) {
-      return (
-        <div>
-          <h2>There are no videos to show!</h2>
-        </div>
-      )
+      return null
     }
   }
 

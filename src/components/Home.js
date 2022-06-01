@@ -67,7 +67,6 @@ export default function ThumbnailSection () {
       if (status === 200) {
 
         setMovementArray(data);
-        console.log(data);
         
       } else {
         alert('oops')
@@ -79,11 +78,7 @@ export default function ThumbnailSection () {
 
   const DisplayVideos = () => {
     if (movementArray.length === 0) {
-      return (
-        <div>
-          <h2>There are no videos to show!</h2>
-        </div>
-      )
+      return null;
     }
   }
 
