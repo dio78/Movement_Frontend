@@ -2,6 +2,8 @@ import axios from "axios";
 
 export const serverURL = process.env.REACT_APP_ROOT_SERVER_URL;
 
+console.log(serverURL);
+
 export async function login (email, password) {
   const body = {
     email,
