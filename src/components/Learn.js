@@ -96,7 +96,6 @@ export default function Learn () {
       if (status === 200) {
 
         setMovement(data[0]);
-        console.log(data);
         
       } else {
         alert('oops')
@@ -206,7 +205,7 @@ export default function Learn () {
     if (!runningPlaybackRef.current){
       runPlayback(poses, ctx)
     } else {
-      console.log('nice try')
+
     }    
   }
 
@@ -220,8 +219,6 @@ export default function Learn () {
       // const poses = keypointArray.map((x) => {
       //   return x;
       // });
-      console.log(typeof keypointArray);
-      console.log(keypointArray);
       
       drawPlaybackSkeleton(CanvasRef, keypointArray)
     }

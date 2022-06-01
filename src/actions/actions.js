@@ -2,15 +2,12 @@ import axios from "axios";
 
 export const serverURL = process.env.REACT_APP_ROOT_SERVER_URL;
 
-console.log(serverURL);
-
 export async function login (email, password) {
   const body = {
     email,
     password
    }
 
-   console.log(serverURL)
    try {
     const loginRequest = await axios.post(
      `${serverURL}/auth/sign-in`, body
@@ -23,7 +20,7 @@ export async function login (email, password) {
     }
 
    } catch (error) {
-     console.log(error);
+
      return null;
    }
 
@@ -55,7 +52,7 @@ export async function uploadMovement (body) {
       return 'success!'
     }
   } catch (error) {
-    console.log(error);
+
     return null;
   }
   
@@ -85,7 +82,7 @@ export async function saveLibraryVid (body) {
       return;
     }
   } catch (error) {
-    console.log(error);
+
     return null;
   }
   
@@ -115,7 +112,7 @@ export async function removeLibraryVid (body) {
       return;
     }
   } catch (error) {
-    console.log(error);
+
     return null;
   }
   

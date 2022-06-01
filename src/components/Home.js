@@ -32,7 +32,7 @@ export default function ThumbnailSection () {
       const { data, status } = await request
       
       if (status === 200) {
-        console.log(data);
+    
         
         const newArray = [];
         data.forEach((item) => {
@@ -43,7 +43,7 @@ export default function ThumbnailSection () {
         alert('oops')
       }
     } catch(error) {
-      console.log(error);
+
     };
   }
 
@@ -103,7 +103,7 @@ export default function ThumbnailSection () {
         <Col>
         <DisplayVideos />
       {movementArray.length > 0 && movementArray.map((movement, i) => {
-        console.log(1)
+
         if (savedMovementArray.includes(movement.movement_id)) {
           let newArray = [...movementArray];
           newArray.splice(i, 1);

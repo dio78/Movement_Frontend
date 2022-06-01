@@ -68,7 +68,7 @@ export default function Create() {
 
   const detect = async (detector) => {
     if (otherVidRef.current == null) {
-      console.log('false')
+
       return;
     }
 
@@ -129,8 +129,7 @@ export default function Create() {
     otherVidRef.current.addEventListener("resize", ev => {
       alert('resized!');
     })
-    console.log('Width: ' + otherVidRef.current.videoWidth)
-    console.log('Height: ' + otherVidRef.current.videoHeight)
+
     if (analyzed) {
       e.target.controls = true;
       e.target.autoPlay = false;

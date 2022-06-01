@@ -22,7 +22,7 @@ export default function ThumbnailSection () {
       
       if (status === 200) {
         setVideoArray(data);
-        console.log(data);
+
       } else {
         alert('oops')
       }

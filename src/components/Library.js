@@ -41,8 +41,7 @@ export default function Library () {
       if (status === 200) {
 
         setMovementArray(data);
-        console.log(data);
-        debugger;
+
       } else {
         alert('oops')
       }

@@ -56,8 +56,7 @@ const SelectKeyframes = (props) => {
         image: dataURL
       }])
     }
-    console.log(stepsArray)
-    debugger;
+
   }
 
   const drawSkeleton = (canvas, keypoints) => {
