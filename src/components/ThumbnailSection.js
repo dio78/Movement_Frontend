@@ -32,11 +32,7 @@ export default function ThumbnailSection () {
 
   const DisplayVideos = () => {
     if (videoArray.length === 0) {
-      return (
-        <div>
-          <h2>There are no videos to show!</h2>
-        </div>
-      )
+      return null;
     }
   }
 
