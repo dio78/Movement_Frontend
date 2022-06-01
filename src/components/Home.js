@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import AddIcon from '@mui/icons-material/Add';
-import { saveLibraryVid } from "../actions/actions";
+import { saveLibraryVid, serverURL } from "../actions/actions";
 import { Row, Col } from "react-bootstrap";
 
 export default function ThumbnailSection () {
@@ -15,7 +15,6 @@ export default function ThumbnailSection () {
     getSavedVideos();
   },[movementArray])
 
-
   const getSavedVideos = async () => {
     
     try {
@@ -27,7 +26,7 @@ export default function ThumbnailSection () {
       };
 
       const request = axios.get(
-        `http://localhost:8000/api/library/`, headerConfig
+        `${serverURL}/api/library/`, headerConfig
       );
 
       const { data, status } = await request
@@ -59,7 +58,7 @@ export default function ThumbnailSection () {
       };
 
       const request = axios.get(
-        `http://localhost:8000/api/movements/`, headerConfig
+        `${serverURL}/api/movements/`, headerConfig
       );
 
       const { data, status } = await request
@@ -119,10 +118,8 @@ export default function ThumbnailSection () {
             <PhotoContainer>
               <ThumbnailImage src={movement.thumbnail} alt='Thumbnail of video that is described in title above' onClick={() => alert('clicked')}></ThumbnailImage>
               {/* <TitleLabel>{movement.title}</TitleLabel> */}
-              <AddButton onClick={handleAdd} id={movement.movement_id}>
-                <AddIcon id={movement.movement_id}/>
-                Add
-              </AddButton>
+
+              
             </PhotoContainer>
           </Col>
           <Col>
@@ -131,6 +128,14 @@ export default function ThumbnailSection () {
             <Row>
               <Col className="mt-3">
                 <h5>{movement.steps.length} steps</h5>  
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <AddButton onClick={handleAdd} id={movement.movement_id}>
+                  <AddIcon id={movement.movement_id}/>
+                  Add
+                </AddButton>
               </Col>
             </Row>
             
@@ -158,15 +163,10 @@ const TitleLabel = styled.h2`
 `
 
 const AddButton = styled.button`
-position: absolute;
 display: inline-flex;
-top: 93%;
-left: 93%;
-transform: translate(-50%, -50%);
--ms-transform: translate(-50%, -50%);
 background-color: #6DCB6B;
 color: #FFFFFF;
-font-size: 16px;
+font-size: 1em;
 font-weight: bold;
 padding: 6px 10px 6px 5px;
 border: none;

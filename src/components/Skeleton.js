@@ -9,6 +9,7 @@ import '@tensorflow/tfjs-backend-webgl';
 import { Button, Row, Col, Form } from 'react-bootstrap';
 import axios from  'axios';
 import { render } from 'react-dom';
+import { serverURL } from '../actions/actions';
 
 
 
@@ -341,7 +342,7 @@ function Skeleton() {
 
     try {
       const request = axios.post(
-        `http://localhost:8000/api/movements/`,
+        `${serverURL}/api/movements/`,
         body
       );
 

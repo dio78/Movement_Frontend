@@ -1,14 +1,17 @@
 import axios from "axios";
 
+export const serverURL = process.env.REACT_APP_ROOT_SERVER_URL;
+
 export async function login (email, password) {
   const body = {
     email,
     password
    }
 
+   console.log(serverURL)
    try {
     const loginRequest = await axios.post(
-     'http://localhost:8000/auth/sign-in', body
+     `${serverURL}/auth/sign-in`, body
     );
 
     if (loginRequest.status === 200) {
@@ -43,7 +46,7 @@ export async function uploadMovement (body) {
 
   try{
     const uploadRequest = await axios.post(
-      'http://localhost:8000/api/movements', body, headerConfig
+      `${serverURL}/api/movements`, body, headerConfig
     );
   
     if (uploadRequest.status === 200) {
@@ -73,7 +76,37 @@ export async function saveLibraryVid (body) {
 
   try{
     const uploadRequest = await axios.post(
-      'http://localhost:8000/api/library', body, headerConfig
+      `${serverURL}/api/library`, body, headerConfig
+    );
+  
+    if (uploadRequest.status === 200) {
+      return;
+    }
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+  
+}
+
+export async function removeLibraryVid (body) {
+  // const token = localStorage.getItem('token');
+  // const headerConfig = {
+  //   headers: { Authorization: `Bearer ${token}` },
+  // };
+
+  const userInfoObj = JSON.parse(localStorage.getItem('currentUser'));
+  debugger;
+  const headerConfig = {
+    headers: {
+      Authorization: `Bearer ${localStorage.token}`,
+      'Content-Type': 'application/json',
+    },
+  };
+
+  try{
+    const uploadRequest = await axios.delete(
+      `${serverURL}/api/library`, body, headerConfig
     );
   
     if (uploadRequest.status === 200) {

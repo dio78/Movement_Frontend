@@ -5,6 +5,7 @@ import { Row, Col, Container, Button } from "react-bootstrap";
 import LearningSkeletonOverlay from "./LearningSkeletonOverlay";
 import * as poseDetection from '@tensorflow-models/pose-detection';
 import styled from "styled-components";
+import { serverURL } from "../actions/actions";
 
 export default function Learn () {
   let [movement, setMovement] = useState({})
@@ -87,7 +88,7 @@ export default function Learn () {
       
 
       const request = axios.get(
-        `http://localhost:8000/api/learn/${id}`, headerConfig, { params: { answer: 42 } }
+        `${serverURL}/api/learn/${id}`, headerConfig, { params: { answer: 42 } }
       );
 
       const { data, status } = await request

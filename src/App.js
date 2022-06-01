@@ -75,10 +75,10 @@ const DropdownElement = () => {
     <div>
       <NavItems>
         <BrandTitle className="mx-4">MOVEMENT</BrandTitle>
-        <div>
+        {/* <div>
           <SearchBar placeholder="Search..."/>
           <StyledSearchIcon />
-        </div>
+        </div> */}
         <div>
           <NavLink to="/">
             <li>Home</li>

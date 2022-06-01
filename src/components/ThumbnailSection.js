@@ -1,6 +1,7 @@
 import { Row, Col } from "react-bootstrap";
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { serverURL } from "../actions/actions";
 
 export default function ThumbnailSection () {
 
@@ -14,7 +15,7 @@ export default function ThumbnailSection () {
     
     try {
       const request = axios.get(
-        `http://localhost:8000/api/movements/`
+        `${serverURL}/api/movements/`
       );
 
       const { data, status } = await request

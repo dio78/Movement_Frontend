@@ -5,6 +5,7 @@ import styled from "styled-components";
 import { Row, Col } from "react-bootstrap";
 import { Navigate, useNavigate } from "react-router-dom";
 import { useRef } from "react";
+import { removeLibraryVid, serverURL } from "../actions/actions";
 
 
 
@@ -32,7 +33,7 @@ export default function Library () {
       };
       
       const request = axios.get(
-        `http://localhost:8000/api/library/`, headerConfig
+        `${serverURL}/api/library/`, headerConfig
       );
 
       const { data, status } = await request
@@ -74,11 +75,25 @@ export default function Library () {
 
   }
 
+  const handleRemove = (e) => {
+    e.preventDefault();
+
+    alert('Clicked!')
+
+    const movement_id = parseInt(e.target.id)
+
+    const body = {
+      user_id: JSON.parse(localStorage.currentUser).user_id,
+      movement_id: movement_id
+    };
+
+    removeLibraryVid(body);
+  }
+
   return (
     <main style={{ padding: "1rem 0" }}>
       <DisplayVideos />
       {movementArray.length > 0 && movementArray.map((movement, i) => {
-        debugger;
         return(
           <Row>
           <Col key={i} xs={{span: 3, offset: 2}} className='mb-5'>
@@ -94,7 +109,7 @@ export default function Library () {
                   <AddButton onClick={() => navigate(`/learn/${movement.movement_id}`)} id={movement.movement_id}>
                   Learn
                 </AddButton>
-                <RemoveButton>Remove</RemoveButton>
+                <RemoveButton onClick={handleRemove} id={movement.movement_id}>Remove</RemoveButton>
                 </Col>
               </Row>
              
