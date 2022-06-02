@@ -16,6 +16,7 @@ export default function Learn () {
   const [nose, setNose] = useState(null);
   const [stepsArray, setStepsArray] = useState(null);
   const imageDetectorRef = useRef(null);
+  const [showSkeleton, setShowSkeleton] = useState(false);
 
 
   let { id } = useParams();
@@ -94,7 +95,7 @@ export default function Learn () {
       const { data, status } = await request
       
       if (status === 200) {
-
+        debugger;
         setMovement(data[0]);
         
       } else {
@@ -254,7 +255,7 @@ export default function Learn () {
   )
   }
 
-  const ImageCanvasElement = (props) => {
+  const ImageElement = (props) => {
 
     debugger;
     const data = movement.steps[props.index - 1].image;
@@ -277,6 +278,16 @@ export default function Learn () {
       
   }
 
+  const handleToggleSkeletonClick = () => {
+    if (showSkeleton) {
+      setShowSkeleton(false);
+      return;
+    }
+
+    setShowSkeleton(true);
+    return;
+  }
+
   return(
 
     <Container fluid>
@@ -290,7 +301,9 @@ export default function Learn () {
       <Col className='text-center'>
         <Row>
           <Col>
-          <LearningSkeletonOverlay />
+            {showSkeleton &&
+              <LearningSkeletonOverlay />
+            }
             <canvas  ref={CanvasRef}
               width='640px'
               height='480px'
@@ -305,6 +318,7 @@ export default function Learn () {
           </Col>
         </Row>
         <StyledButton type="button" onClick={handlePlayClick}>Play</StyledButton>
+        <StyledButton type="button" onClick={handleToggleSkeletonClick}>Show My Skeleton</StyledButton>
             <div>
               <input type='range' min='10' max='90' step='5' onChange={(e) => setPlaybackSpeed(e.target.value)} style={{'width': '20%'}}/>
               <p>Playback Speed: {playbackSpeed/50}x</p>
@@ -337,7 +351,7 @@ export default function Learn () {
                       <CanvasElement {...keypoints} {...value}/>
                       </Col>
                       <Col xs={6}>
-                      <ImageCanvasElement {...value}/>
+                      <ImageElement {...value}/>
                       </Col>
                     </Row>
                   </Col>
@@ -349,8 +363,15 @@ export default function Learn () {
                     </Row>
                     {step.description === '' &&
                     <Row>
-                      <Col className="mt-5">
+                      <Col className="mt-4">
                         <div>No description provided</div>
+                      </Col>
+                    </Row>
+                    }
+                    {step.description !== '' &&
+                    <Row>
+                      <Col className="mt-4">
+                        <div>{step.description}</div>
                       </Col>
                     </Row>
                     }
