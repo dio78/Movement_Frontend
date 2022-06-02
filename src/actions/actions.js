@@ -103,6 +103,8 @@ export async function removeLibraryVid (body) {
     },
   };
 
+  alert('Clicked!')
+
   try{
     const uploadRequest = await axios.delete(
       `${serverURL}/api/library`, body, headerConfig

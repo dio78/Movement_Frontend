@@ -77,7 +77,7 @@ export default function Library () {
   const handleRemove = (e) => {
     e.preventDefault();
 
-    alert('Clicked!')
+   
 
     const movement_id = parseInt(e.target.id)
 
