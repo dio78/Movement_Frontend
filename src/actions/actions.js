@@ -59,13 +59,7 @@ export async function uploadMovement (body) {
 }
 
 export async function saveLibraryVid (body) {
-  // const token = localStorage.getItem('token');
-  // const headerConfig = {
-  //   headers: { Authorization: `Bearer ${token}` },
-  // };
 
-  const userInfoObj = JSON.parse(localStorage.getItem('currentUser'));
-  debugger;
   const headerConfig = {
     headers: {
       Authorization: `Bearer ${localStorage.token}`,
@@ -89,28 +83,23 @@ export async function saveLibraryVid (body) {
 }
 
 export async function removeLibraryVid (body) {
-  // const token = localStorage.getItem('token');
-  // const headerConfig = {
-  //   headers: { Authorization: `Bearer ${token}` },
-  // };
 
-  const userInfoObj = JSON.parse(localStorage.getItem('currentUser'));
-  debugger;
+  
   const headerConfig = {
     headers: {
       Authorization: `Bearer ${localStorage.token}`,
       'Content-Type': 'application/json',
+      user_id: body.user_id,
+      movement_id: body.movement_id
     },
   };
 
-  alert('Clicked!')
-
   try{
-    const uploadRequest = await axios.delete(
-      `${serverURL}/api/library`, body, headerConfig
+    const deleteRequest = await axios.delete(
+      `${serverURL}/api/library`, headerConfig
     );
   
-    if (uploadRequest.status === 200) {
+    if (deleteRequest.status === 200) {
       return;
     }
   } catch (error) {

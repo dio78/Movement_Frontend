@@ -113,33 +113,36 @@ export default function ThumbnailSection () {
 
         return(
           <Row>
-          <Col key={i} xs={{span: 3, offset: 2}} className='mb-5'>
-             
-            <PhotoContainer>
-              <ThumbnailImage src={movement.thumbnail} alt='Thumbnail of video that is described in title above' onClick={() => alert('clicked')}></ThumbnailImage>
-              {/* <TitleLabel>{movement.title}</TitleLabel> */}
+            <Col xs={{span: 4, offset: 2}}>
+              <Row>
+                <Col key={i} className=''>
+                
+                  <PhotoContainer>
+                    <ThumbnailImage src={movement.thumbnail} alt='Thumbnail of video that is described in title above' onClick={() => alert('clicked')}></ThumbnailImage>
+                    {/* <TitleLabel>{movement.title}</TitleLabel> */}
 
-              
-            </PhotoContainer>
-          </Col>
-          <Col>
-            <TitleLabel>{movement.title}</TitleLabel>
-            <UsernameDisplay>{movement.username}</UsernameDisplay>
-            <Row>
-              <Col className="mt-3">
-                <h5>{movement.steps.length} steps</h5>  
-              </Col>
-            </Row>
-            <Row>
-              <Col>
-                <AddButton onClick={handleAdd} id={movement.movement_id}>
-                  <AddIcon id={movement.movement_id}/>
-                  Add
-                </AddButton>
-              </Col>
-            </Row>
-            
-          </Col>
+                    
+                  </PhotoContainer>
+                </Col>
+              </Row>
+              <Row className="mb-5">
+                <Col className="text-center">
+                  <AddButton onClick={handleAdd} id={movement.movement_id}>
+                    <AddIcon id={movement.movement_id}/>
+                    Add
+                  </AddButton>
+                </Col>
+              </Row>
+            </Col>
+            <Col md={4}>
+              <TitleLabel>{movement.title}</TitleLabel>
+              <UsernameDisplay>{movement.username}</UsernameDisplay>
+              <Row>
+                <Col className="mt-3">
+                  <h5>{movement.steps.length} steps</h5>  
+                </Col>
+              </Row>              
+            </Col>
           </Row>
         )
       })}

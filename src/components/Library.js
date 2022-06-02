@@ -13,17 +13,14 @@ export default function Library () {
 
   let navigate = useNavigate();
   const [movementArray, setMovementArray] = useState([]);
-  const movementId = useRef(null);
   const [learn, setLearn] = useState(false);
 
   useEffect(()=> {
     getSavedVideos();
-  },[])
+  },[movementArray])
 
   const getSavedVideos = async () => {
   
-    
-
     try {
       const headerConfig = {
         headers: {
