@@ -213,7 +213,7 @@ export default function Create() {
       return (
         <Row>
           <Col>
-            <h1>1. Analyzing Video</h1>
+            <h1>Analyzing Video</h1>
             <Circle />
           </Col>
         </Row>

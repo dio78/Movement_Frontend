@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Row, Col, Container, Form, Button } from "react-bootstrap";
 import { uploadMovement } from "../actions/actions";
 import styled from "styled-components";
+import { Navigate, useNavigate } from "react-router-dom";
 
 const SelectKeyframes = (props) => {
 
@@ -17,6 +18,7 @@ const SelectKeyframes = (props) => {
   const [stepsComplete, setStepsComplete] = useState(false);
   const [thumbnailImage, setThumbnailImage] = useState(null);
   const [stepsArray, setStepsArray] = useState([]);
+  let [submitted, setSubmitted] = useState(false);
   
 
   const movenetLoad = async () => {
@@ -221,6 +223,10 @@ const SelectKeyframes = (props) => {
       debugger
     }
     debugger;
+
+    setSubmitted(true);
+
+  
   }
 
   const [title, setTitle] = useState('');
@@ -423,6 +429,8 @@ if (props.analyzed) {
            </Row>
           }
      
+     {submitted && 
+      <Navigate to='/' replace={true} />}
     </Container>
     </>
   )
