@@ -8,8 +8,8 @@ const normalizeKeypoints = (keypoints, imageWidth, imageHeight, intrinsicWidth, 
 
 
   keypoints.forEach(keypoint => {
-    keypoint.x = keypoint.x * .85;
-    keypoint.y = keypoint.y * .85;
+    keypoint.x = keypoint.x * 1;
+    keypoint.y = keypoint.y * 1;
   });
 };
 

@@ -9,7 +9,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 const SelectKeyframes = (props) => {
 
 
-  debugger;
+
   const [selectedKeypointArray, setSelectedKeypointArray] = useState([]);
   const [selectedImageArray, setSelectedImageArray] = useState([]);
   const imageDetectorRef = useRef(null);
@@ -66,13 +66,13 @@ const SelectKeyframes = (props) => {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, 1500, 1300);
 
-    debugger;
+    
     drawKeypoints(keypoints, ctx);
     drawBones(keypoints, ctx);
   }
 
   const drawKeypoints = (keypoints, ctx) => {
-    debugger;
+ 
     keypoints.forEach(keypoint => {
       if (keypoint.score > 0.1) {
         ctx.beginPath();
@@ -102,7 +102,7 @@ const SelectKeyframes = (props) => {
   const handleKeyframeClick = (e) => {
     e.preventDefault();
 
-    debugger;
+  
     // props.setTest('hi!')
 
     const video = props.otherVidRef.current;
@@ -116,14 +116,16 @@ const SelectKeyframes = (props) => {
 
     const imageCanvas = document.createElement('canvas');
 
-    const context = imageCanvas.getContext('2d')
+    imageCanvas.width = video.videoWidth;
+    imageCanvas.height = video.videoHeight;
 
+    const context = imageCanvas.getContext('2d')
+    
+
+    debugger
     context.drawImage(video, 0, 0, imageCanvas.width, imageCanvas.height);
 
     const dataURL = imageCanvas.toDataURL();
-
-    debugger
-    debugger;
 
     movenetLoad(); 
     detect(imageDetectorRef.current, video, dataURL);
@@ -134,6 +136,8 @@ const SelectKeyframes = (props) => {
     const canvas = useRef();
 
     debugger;
+
+    const video = props.current;
 
     React.useEffect(() => {
       const context = canvas.current.getContext('2d');
@@ -146,12 +150,13 @@ const SelectKeyframes = (props) => {
     //   drawSkeleton(canvas.current, [keypoints])
     // }
 
+    debugger;
    
     return (
         <canvas ref={canvas}
         
-        width='700px'
-        height='350px'
+        width={props.current.videoWidth}
+        height={props.current.videoHeight}
         
         style={{
           display: "inline-block",
@@ -171,19 +176,20 @@ const SelectKeyframes = (props) => {
 
   const ImageCanvasElement = (props) => {
 
-    debugger;
+
     const data = stepsArray[props.index - 1].image;
 
-    debugger;
+
     return (
       <img src={data} onClick={handleImageClick}
       
-      // width='700px'
-      // height='400px'
+      width={props.current.videoWidth}
+      height={props.current.videoWidth}
       
       style={{
         display: "inline-block",
         width: '100%',
+        height: '100%',
         zIndex: 4, 
         borderRadius: '10px'
       }}
@@ -193,7 +199,7 @@ const SelectKeyframes = (props) => {
   }
 
   const submitIt = async (e) => {
-    debugger;
+
     e.preventDefault();
 
     const newArray = [...stepsArray];
@@ -202,7 +208,7 @@ const SelectKeyframes = (props) => {
       const description = document.getElementById(`${i}text`).value;
 
       step.description = description;
-      debugger;
+
     });
 
     const updatedArray = [...newArray];
@@ -220,9 +226,9 @@ const SelectKeyframes = (props) => {
     const request = await uploadMovement(body);
 
     if (request === 'success!'){
-      debugger
+
     }
-    debugger;
+
 
     setSubmitted(true);
 
@@ -244,7 +250,7 @@ const SelectKeyframes = (props) => {
 
   const handleTitleDoneClick = (e) => {
     e.preventDefault();
-    debugger;
+
     setDone(true);
     
   }
@@ -355,7 +361,7 @@ if (props.analyzed) {
               const value = {
                 index: i + 1
               };
-              debugger;
+        
     
               const keypoints = {
                 keypoints: step.skeleton
@@ -367,10 +373,10 @@ if (props.analyzed) {
                   <Col xs={6} className="text-center mt-5">
                     <Row>
                       <Col xs={6}>
-                      <CanvasElement {...keypoints} {...value}/>
+                      <CanvasElement {...props.otherVidRef} {...keypoints} {...value}/>
                       </Col>
                       <Col xs={6}>
-                      <ImageCanvasElement {...value}/>
+                      <ImageCanvasElement {...props.otherVidRef} {...value}/>
                       </Col>
                     </Row>
                   </Col>
