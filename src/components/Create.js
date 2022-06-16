@@ -49,17 +49,6 @@ export default function Create() {
         }
     }, 10);
 
-    // if (recording) {
-    //   console.log('started recording')
-    //   // recordVideo();
-    // } else {
-    //   // if (recordedChunks.length > 0) {
-
-    //   //   stopRecordVideo();
-    //   // }
-    //   console.log('stopped recording')
-    // }
-
     return () => {
       clearInterval(interval);
     };
@@ -96,6 +85,8 @@ export default function Create() {
     const ctx = canvas.current.getContext('2d');
     ctx.clearRect(0, 0, 1500, 1300);
     const keypoints = pose[0].keypoints;
+
+    ctx.lineWidth = 5;
 
     drawKeypoints(keypoints, ctx);
     drawBones(keypoints, ctx);
@@ -240,7 +231,9 @@ export default function Create() {
               style={{
                 // display: 'block',
                 zIndex: 4, 
-                width: '85%',
+                width: 'auto',
+                maxHeight: '60vh',
+                maxWidth: '85%',
                 borderStyle: 'solid',
                 borderColor: 'blue',
                 borderWidth: '5px',
@@ -343,6 +336,7 @@ display: block;
 margin: 2rem auto 0 auto;
 width: 85%;
 height: auto;
+max-height: 60vh;
 border-radius: 10px;
 `
 

@@ -66,6 +66,7 @@ const SelectKeyframes = (props) => {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, 1500, 1300);
 
+    ctx.lineWidth = 5;
     
     drawKeypoints(keypoints, ctx);
     drawBones(keypoints, ctx);
@@ -160,7 +161,9 @@ const SelectKeyframes = (props) => {
         
         style={{
           display: "inline-block",
-          width: '100%',
+          width: 'auto',
+          maxWidth: '100%',
+          maxHeight: '50vh', 
           zIndex: 4, 
           borderStyle: 'solid',
           borderColor: 'blue',
@@ -188,8 +191,10 @@ const SelectKeyframes = (props) => {
       
       style={{
         display: "inline-block",
-        width: '100%',
-        height: '100%',
+        width: 'auto',
+        maxWidth: '100%',
+        maxHeight: '50vh',
+        height: 'auto',
         zIndex: 4, 
         borderRadius: '10px'
       }}

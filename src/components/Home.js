@@ -129,7 +129,7 @@ export default function ThumbnailSection () {
                 <Col className="text-center">
                   <AddButton onClick={handleAdd} id={movement.movement_id}>
                     <AddIcon id={movement.movement_id}/>
-                    Add
+                    Add to Library
                   </AddButton>
                 </Col>
               </Row>
@@ -175,6 +175,7 @@ padding: 6px 10px 6px 5px;
 border: none;
 cursor: pointer;
 border-radius: 5px;
+margin-top: .5rem;
 
 &:hover{
   background-color: #62B761;
