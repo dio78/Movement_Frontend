@@ -17,6 +17,7 @@ export default function Create() {
   const detectorRef = useRef(null);
   const canvasRef = useRef(null);
   const selectCanvasRef = useRef(null);
+  let [videoLoaded, setVideoLoaded] = useState(false);
 
   const newArray = []
 
@@ -126,6 +127,9 @@ export default function Create() {
   }
 
   const handleLoaded = (e) => {
+
+    setVideoLoaded(true);
+
     otherVidRef.current.addEventListener("resize", ev => {
       alert('resized!');
     })
@@ -223,6 +227,31 @@ export default function Create() {
     }
   }
 
+
+  const CanvasElement = () => {
+    if (!videoLoaded) {
+      return null
+    } else {
+      return (
+        <canvas ref={canvasRef}
+              width={otherVidRef.current.videoWidth}
+              height={otherVidRef.current.videoHeight}
+              
+              style={{
+                // display: 'block',
+                zIndex: 4, 
+                width: '85%',
+                borderStyle: 'solid',
+                borderColor: 'blue',
+                borderWidth: '5px',
+                marginTop: '2rem',
+                borderRadius: '10px'
+              }}/>
+      )
+    }
+
+  }
+
   if (!file) {
     movenetLoad();
     return (
@@ -247,9 +276,10 @@ export default function Create() {
           </Col>
             
           <Col xs={6} className="text-center">
-            <canvas ref={canvasRef}
-              width='700px'
-              height='390px'
+            <CanvasElement />
+            {/* <canvas ref={canvasRef}
+              width={otherVidRef.current.videoWidth}
+              height={otherVidRef.current.videoHeight}
               
               style={{
                 // display: 'block',
@@ -260,7 +290,7 @@ export default function Create() {
                 borderWidth: '5px',
                 marginTop: '2rem',
                 borderRadius: '10px'
-              }}/>
+              }}/> */}
           </Col>
         </Row>
         <Col xs={12} className='mb-1'>
