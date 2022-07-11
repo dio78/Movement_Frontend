@@ -3,8 +3,6 @@ const normalizeKeypoints = (keypoints, imageWidth, imageHeight, intrinsicWidth, 
   const heightRatio = imageHeight / intrinsicHeight;
   
   const aspectRatio = intrinsicWidth / intrinsicHeight;
-  console.log(aspectRatio)
-  console.log(keypoints)
 
 
   keypoints.forEach(keypoint => {

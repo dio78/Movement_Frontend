@@ -139,7 +139,7 @@ export default function ThumbnailSection () {
               <UsernameDisplay>{movement.username}</UsernameDisplay>
               <Row>
                 <Col className="mt-3">
-                  <h5>{movement.steps.length} steps</h5>  
+                  <h5>{movement.number_of_steps} steps</h5>  
                 </Col>
               </Row>              
             </Col>
