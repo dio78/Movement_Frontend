@@ -17,10 +17,10 @@ export default function Library () {
 
   useEffect(()=> {
     getSavedVideos();
-  },[movementArray])
+  },[])
 
   const getSavedVideos = async () => {
-  
+    
     try {
       const headerConfig = {
         headers: {
@@ -28,6 +28,8 @@ export default function Library () {
           'Content-Type': 'application/json',
         },
       };
+      
+      console.log('going')
       
       const request = axios.get(
         `${serverURL}/api/library/`, headerConfig
@@ -82,6 +84,8 @@ export default function Library () {
     };
 
     removeLibraryVid(body);
+
+    getSavedVideos();
   }
 
   return (
@@ -116,7 +120,7 @@ export default function Library () {
           <UsernameDisplay>{movement.username}</UsernameDisplay>
           <Row>
             <Col className="mt-3">
-              <h5>{movement.steps.length} steps</h5>  
+              <h5>{movement.number_of_steps} steps</h5>  
             </Col>
           </Row>
           

@@ -220,12 +220,16 @@ const SelectKeyframes = (props) => {
 
     setStepsArray(updatedArray);
 
+
+    debugger;
+
     const body = {
       user_id: JSON.parse(localStorage.currentUser).user_id,
       title: title,
       thumbnail: thumbnailImage,
       keyframes: JSON.stringify(props.keypointArray),
-      steps: JSON.stringify(stepsArray)
+      steps: JSON.stringify(stepsArray),
+      number_of_steps: stepsArray.length
     };
 
     const request = await uploadMovement(body);
