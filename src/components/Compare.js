@@ -6,7 +6,7 @@ import * as poseDetection from '@tensorflow-models/pose-detection';
 import normalizeKeypoints from "../tensorActions/normalizeKeypoints";
 import SelectKeyframes from "../tensorActions/selectKeyframes";
 
-export default function Create() {
+export default function Compare() {
 
   let [file1, setFile1] = useState(null); 
   let [file2, setFile2] = useState(null);
@@ -17,7 +17,8 @@ export default function Create() {
   let vidRef1 = useRef(null);
   let vidRef2 = useRef(null);
   const detectorRef = useRef(null);
-  const canvasRef = useRef(null);
+  const canvasRef1 = useRef(null);
+  const canvasRef2 = useRef(null);
   const selectCanvasRef = useRef(null);
   let [videoLoaded, setVideoLoaded] = useState(false);
 
@@ -52,7 +53,7 @@ export default function Create() {
     const interval = setInterval(() => {
         if (detectorRef && vidRef1.current) {
           
-          detect(detectorRef.current, vidRef1);
+          detect(detectorRef.current, vidRef1, canvasRef1, '1');
         }
     }, 10);
 
@@ -67,7 +68,7 @@ export default function Create() {
     const interval = setInterval(() => {
         if (detectorRef && vidRef2.current) {
           
-          detect(detectorRef.current, vidRef1);
+          detect(detectorRef.current, vidRef2, canvasRef2, '2');
         }
     }, 10);
 
@@ -78,7 +79,7 @@ export default function Create() {
 
   
 
-  const detect = async (detector, videoRef) => {
+  const detect = async (detector, videoRef, canvasReference, videoNumber) => {
     if (videoRef.current == null) {
 
       return;
@@ -95,21 +96,27 @@ export default function Create() {
       }
       // normalizeKeypoints(pose[0].keypoints, 640, 360.56, vidRef1.current.videoWidth, vidRef1.current.videoHeight)
 
-      drawSkeleton(canvasRef, pose);
+      drawSkeleton(canvasReference, pose, videoRef, videoNumber);
 
-      if(!analyzed && vidRef1.current) {
+      if(!analyzed && video) {
         newArray.push(pose[0].keypoints);
       }
     }
   }
 
-  const drawSkeleton = (canvas, pose) => {
+  const drawSkeleton = (canvas, pose, videoReference, videoNumber) => {
     const ctx = canvas.current.getContext('2d');
     ctx.clearRect(0, 0, 1500, 1300);
     const keypoints = pose[0].keypoints;
-
+  
     ctx.lineWidth = 5;
 
+    if (videoNumber === '1'){
+      ctx.strokeStyle = "red";
+    } else {
+      ctx.strokeStyle = "blue";
+    }
+    
     drawKeypoints(keypoints, ctx);
     drawBones(keypoints, ctx);
   }
@@ -143,9 +150,9 @@ export default function Create() {
 
     setVideoLoaded(true);
 
-    vidRef1.current.addEventListener("resize", ev => {
-      alert('resized!');
-    })
+    // vidRef1.current.addEventListener("resize", ev => {
+    //   alert('resized!');
+    // })
 
     if (analyzed) {
       e.target.controls = true;
@@ -157,7 +164,7 @@ export default function Create() {
   }
 
   const handleVideoEnded = (e) => {
-    if (keypointArray.length > 0) {
+    if (analyzed) {
       return;
     }
     e.target.autoPlay = false;
@@ -190,7 +197,7 @@ export default function Create() {
     }
   }
 
-  const PreUpload = () => {
+  const PreUpload1 = () => {
     return(
       <Container>
         <Row>
@@ -215,6 +222,30 @@ export default function Create() {
     )
   }
   
+  const PreUpload2 = () => {
+    return(
+      <Container>
+        <Row>
+
+
+          <Col xs={{span: 10, offset: 1}} className="text-center mt-5 mb-5">
+            <Quote><em>Compare two movements with eachother</em></Quote>
+          </Col>
+        </Row>
+        <Row>
+        <Col xs={{span: 8, offset: 2}} className="text-center mt-5">
+          <div>
+            <h1>Upload video 2</h1>
+          </div>
+          <UploadLabel>
+            Upload a video
+            <HiddenFileInput type="file" onChange={handleFile2Choose} />
+          </UploadLabel>
+          </Col>
+        </Row>
+      </Container>
+    )
+  }
 
   const pullData = (data) => {
 
@@ -244,17 +275,40 @@ export default function Create() {
   }
 
 
-  const CanvasElement = () => {
+  const CanvasElement1 = () => {
     if (!videoLoaded) {
       return null
     } else {
       return (
-        <canvas ref={canvasRef}
+        <canvas ref={canvasRef1}
               width={vidRef1.current.videoWidth}
               height={vidRef1.current.videoHeight}
               
               style={{
-                // display: 'block',
+                zIndex: 4, 
+                width: 'auto',
+                maxHeight: '60vh',
+                maxWidth: '85%',
+                borderStyle: 'solid',
+                borderColor: 'red',
+                borderWidth: '5px',
+                marginTop: '2rem',
+                borderRadius: '10px'
+              }}/>
+      )
+    }
+  }
+
+  const CanvasElement2 = () => {
+    if (!videoLoaded) {
+      return null
+    } else {
+      return (
+        <canvas ref={canvasRef2}
+              width={vidRef1.current.videoWidth}
+              height={vidRef1.current.videoHeight}
+              
+              style={{
                 zIndex: 4, 
                 width: 'auto',
                 maxHeight: '60vh',
@@ -267,15 +321,19 @@ export default function Create() {
               }}/>
       )
     }
-
   }
+
 
   if (!file1) {
     movenetLoad();
     return (
-      <PreUpload />
+      <PreUpload1 />
     )
-  } else {
+  } else if(file1 && !file2) {
+    return (
+      <PreUpload2 />
+    )
+  } else if(file1) {
     return (
       <>
         <Container fluid style={{width: "100%"}}>
@@ -287,19 +345,45 @@ export default function Create() {
                 </Col>
                   
                 <Col xs={6} className="text-center">
-                  <CanvasElement />
+                  <CanvasElement1 />
                 </Col>
               </Row>
+            </Col>
+          </Row>     
+        </Container>
 
-              {/* <Row>
+        <Container fluid style={{width: "100%"}}>
+          <Row>
+            <Col>
+              <Row>
                 <Col xs={6} className="text-center">
                   <VideoUpload2 className="center" />
                 </Col>
                   
                 <Col xs={6} className="text-center">
-                  <CanvasElement />
+                  <CanvasElement2 />
                 </Col>
-              </Row> */}
+              </Row>
+            </Col>
+          </Row>     
+        </Container>
+      </>
+    )
+  } else if(file2) {
+    return (
+      <>
+        <Container fluid style={{width: "100%"}}>
+          <Row>
+            <Col>
+              <Row>
+                <Col xs={6} className="text-center">
+                  <VideoUpload2 className="center" />
+                </Col>
+                  
+                <Col xs={6} className="text-center">
+                  <CanvasElement2 />
+                </Col>
+              </Row>
             </Col>
           </Row>     
         </Container>

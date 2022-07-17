@@ -92,6 +92,9 @@ const DropdownElement = () => {
           <NavLink to="/skeleton">
             <li>Skeleton</li>
           </NavLink> |
+          <NavLink to="/compare">
+            <li>Compare</li>
+          </NavLink> |
         </div>
         <DropdownElement />
       </NavItems>

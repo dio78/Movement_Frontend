@@ -3,7 +3,7 @@ import * as poseDetection from '@tensorflow-models/pose-detection';
 export const setupTensor = (video, detectorRef) => {
 
   
-  const movenetLoad = async () => {
+  const movenetLoad = async (detectorRef) => {
 
     const detectorConfig = {
       modelType: poseDetection.movenet.modelType.MULTIPOSE_LIGHTNING,
@@ -17,9 +17,9 @@ export const setupTensor = (video, detectorRef) => {
     detectorRef.current = detector;
   }
 
-}
+};
 
-export  const detect = async (detector, videoRef) => {
+export const detect = async (detector, videoRef, canvasRef) => {
   if (videoRef.current == null) {
 
     return;
@@ -34,12 +34,12 @@ export  const detect = async (detector, videoRef) => {
     if (!pose[0]) {
       return;
     }
-    // normalizeKeypoints(pose[0].keypoints, 640, 360.56, vidRef1.current.videoWidth, vidRef1.current.videoHeight)
+    // normalizeKeypoints(pose[0].keypoints, 640, 360.56, otherVidRef.current.videoWidth, otherVidRef.current.videoHeight)
 
     drawSkeleton(canvasRef, pose);
 
-    if(!analyzed && vidRef1.current) {
+    if(!analyzed && videoRef.current) {
       newArray.push(pose[0].keypoints);
     }
   }
-}
+};

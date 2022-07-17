@@ -45,13 +45,13 @@ export default function Learn () {
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, 1500, 1300);
 
-    debugger;
+    
     drawKeypoints(keypoints, ctx);
     drawBones(keypoints, ctx);
   }
 
   const drawKeypoints = (keypoints, ctx) => {
-    debugger;
+    
     keypoints.forEach(keypoint => {
       if (keypoint.score > 0.1) {
         ctx.beginPath();
@@ -95,7 +95,7 @@ export default function Learn () {
       const { data, status } = await request
       
       if (status === 200) {
-        debugger;
+        
         setMovement(data[0]);
         
       } else {
@@ -162,9 +162,9 @@ export default function Learn () {
         clearInterval(intervalId)
         intervalId = null;
         
-        ctx.clearRect(0, 0, 700, 500);
+        ctx.clearRect(0, 0, 1280, 720);
       } else {
-        ctx.clearRect(0, 0, 700, 500);
+        ctx.clearRect(0, 0, 1280, 720);
         drawPlaybackKeypoints(counter, poses, ctx);
         drawPlaybackBones(counter, poses, ctx);
         counter++;
@@ -229,18 +229,18 @@ export default function Learn () {
     
     const canvas = useRef();
 
-    debugger;
 
     useEffect(() => {
       const context = canvas.current.getContext('2d');
 
       drawSkeleton(canvas.current, props.keypoints)
     })
+    
     return (
       <canvas ref={canvas}
       
-      width='700px'
-      height='350px'
+      width='1280px'
+      height='720px'
       
       style={{
         display: "inline-block",
@@ -305,10 +305,12 @@ export default function Learn () {
               <LearningSkeletonOverlay />
             }
             <canvas  ref={CanvasRef}
-              width='640px'
-              height='480px'
+              width='1280px'
+              height='720px'
               style={{
                 zIndex: 2, 
+                width: '50%',
+                height: 'auto',
                 borderStyle: 'solid',
                 borderColor: 'blue',
                 borderWidth: '5px',
@@ -344,7 +346,7 @@ export default function Learn () {
     
               return(
                 <>
-                <Row>
+                <Row key={i}>
                   <Col xs={6} className="text-center mt-5">
                     <Row>
                       <Col xs={6}>

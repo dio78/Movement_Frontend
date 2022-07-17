@@ -15,6 +15,7 @@ import Home from './components/Home';
 import Login from './components/Login';
 import Library from './components/Library'
 import Learn from './components/Learn';
+import Compare from './components/Compare';
 
 const rootElement = document.getElementById('root');
 const root = createRoot(rootElement);
@@ -45,6 +46,7 @@ root.render(
           <Route path="/skeleton" element={<Skeleton />} />
           <Route path="/upload" element={<Upload />} />
           <Route path="/learn/:id" element={<Learn />} />
+          <Route path="/compare" element={<Compare />} />
         </Route>
       </Route>
     </Routes>

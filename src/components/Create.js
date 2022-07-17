@@ -18,7 +18,8 @@ export default function Create() {
   const canvasRef = useRef(null);
   const selectCanvasRef = useRef(null);
   let [videoLoaded, setVideoLoaded] = useState(false);
-
+  const arrayRef = useRef([]);
+  
   const newArray = []
 
   const handleFileChoose = (e) => {
@@ -44,7 +45,7 @@ export default function Create() {
     
     const interval = setInterval(() => {
         if (detectorRef && otherVidRef.current) {
-          
+
           detect(detectorRef.current);
         }
     }, 10);
@@ -54,16 +55,14 @@ export default function Create() {
     };
   }, [detectorRef.current]);
 
+ 
   
-
   const detect = async (detector) => {
     if (otherVidRef.current == null) {
-
       return;
     }
 
     const video = otherVidRef.current;
-    // video.videoHeight = '360px'
     if (video.readyState === 4) {
 
       const pose = await detector.estimatePoses(video);
@@ -76,7 +75,9 @@ export default function Create() {
       drawSkeleton(canvasRef, pose);
 
       if(!analyzed && otherVidRef.current) {
-        newArray.push(pose[0].keypoints);
+        
+        // newArray.push(pose[0].keypoints);
+        arrayRef.current.push(pose[0].keypoints);
       }
     }
   }
@@ -117,7 +118,10 @@ export default function Create() {
     
   }
 
+  
+
   const handleLoaded = (e) => {
+    debugger;
 
     setVideoLoaded(true);
 
@@ -135,6 +139,7 @@ export default function Create() {
   }
 
   const handleVideoEnded = (e) => {
+    debugger;
     if (keypointArray.length > 0) {
       return;
     }
@@ -142,7 +147,7 @@ export default function Create() {
     setAnalyzed(true);
     setProcessing(false);
 
-    const newArray2 = [...newArray]
+    const newArray2 = [...arrayRef.current]
     debugger;
     setKeypointArray(newArray2);
   }
@@ -220,9 +225,10 @@ export default function Create() {
 
 
   const CanvasElement = () => {
-    if (!videoLoaded) {
+    if (!otherVidRef.current) {
       return null
     } else {
+      debugger;
       return (
         <canvas ref={canvasRef}
               width={otherVidRef.current.videoWidth}
@@ -242,7 +248,6 @@ export default function Create() {
               }}/>
       )
     }
-
   }
 
   if (!file) {

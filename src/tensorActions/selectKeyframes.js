@@ -229,7 +229,9 @@ const SelectKeyframes = (props) => {
       thumbnail: thumbnailImage,
       keyframes: JSON.stringify(props.keypointArray),
       steps: JSON.stringify(stepsArray),
-      number_of_steps: stepsArray.length
+      number_of_steps: stepsArray.length,
+      video_height: props.otherVidRef.current.videoHeight,
+      video_width: props.otherVidRef.current.videoHeight
     };
 
     const request = await uploadMovement(body);
